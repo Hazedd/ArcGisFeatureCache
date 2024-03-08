@@ -1,0 +1,81 @@
+site_name: arcGisFeatureCache
+site_description: ...
+
+repo_url: https://github.com/ArcGisFeatureCache
+repo_name: arcGisFeatureCache
+
+theme:
+    name: material
+    icon:
+        logo: material/library
+    palette:
+        # Palette toggle for automatic mode
+        - media: "(prefers-color-scheme)"
+          toggle:
+            icon: material/brightness-auto
+            name: Switch to light mode
+
+        # Palette toggle for light mode
+        - media: "(prefers-color-scheme: light)"
+          scheme: default
+          primary: deep purple
+          accent: deep orange
+          toggle:
+            icon: material/brightness-7
+            name: Switch to dark mode
+
+        # Palette toggle for dark mode
+        - media: "(prefers-color-scheme: dark)"
+          scheme: slate
+          primary: deep purple
+          accent: deep orange
+          toggle:
+            icon: material/brightness-4
+            name: Switch to light mode
+
+markdown_extensions:
+    - toc:
+        permalink: true
+    - pymdownx.highlight:
+        anchor_linenums: true
+    - pymdownx.tasklist:
+        custom_checkbox: true
+    - pymdownx.inlinehilite
+    - pymdownx.snippets
+    - pymdownx.superfences
+
+plugins:
+    - search
+    - mkdocstrings:
+        autodoc_ignore:
+            - '*._*'
+            - '*.__*'
+        handlers:
+            python:
+                import:
+                    - https://docs.python.org/3.12/objects.inv
+                options:
+                    docstring_style: google
+
+watch:
+    - docs
+    - arcGisFeatureCache
+
+nav:
+    - About: index.md
+    - Examples:
+        - Basic use: examples/basic_use.md
+    - Reference:
+        - FeatureService: reference/ArcGisFeatureService.md
+        - FeatureServiceLayer: reference/ArcGisFeatureServiceLayer.md
+        - Feature:
+            - Feature: reference/Feature/feature.md
+            - Attribute: reference/Feature/attributes.md
+            - Geometry: reference/Feature/geometry.md
+#        - Other:
+#            - helpers: reference/other/helpers.md
+#            - logger: reference/other/logger.md
+#            - ImmutableList: reference/other/immutableList.md
+    - Contributing: contribution.md
+    - Code of conduct: code_of_conduct.md
+    - License: license.md

@@ -1,0 +1,88 @@
+[tool.ruff]
+target-version = "py312"
+
+[tool.ruff.lint]
+extend-select = ["I", "TRY", "UP"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=arcGisFeatureCache/ --cov-report=term-missing"
+asyncio_mode = "strict"
+
+[tool.hatch]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.version]
+source = "regex_commit"
+commit_message = "🚀 Version {new_version}"
+path = "arcGisFeatureCache/__init__.py"
+tag_sign = false
+
+[tool.hatch.envs.default]
+python = "3.12"
+dependencies = [
+    "mypy",
+    "ruff",
+    "pytest",
+    "pytest-cov",
+    "pytest-asyncio",
+    "mkdocs-material",
+    "mkdocstrings[python]",
+    "pre-commit",
+    "filelock",
+    "distlib",
+]
+
+[[tool.hatch.envs.test.matrix]]
+python = ["3.10", "3.11", "3.12"]
+
+[tool.hatch.envs.default.scripts]
+test = "pytest"
+test-cov-xml = "pytest --cov-report=xml"
+lint = [
+  "ruff format .",
+  "ruff --fix .",
+  "mypy arcGisFeatureCache/",
+]
+lint-check = [
+  "ruff format --check .",
+  "ruff .",
+  "mypy arcGisFeatureCache/",
+]
+docs-serve = "mkdocs serve"
+docs-build = "mkdocs build"
+
+[build-system]
+requires = ["hatchling", "hatch-regex-commit"]
+build-backend = "hatchling.build"
+
+[project]
+name = "arcGisFeatureCache"
+authors = [
+  { name = "ArcGisFeatureCache", email = "Hazedd@no-replay.github.com" }
+]
+description = "..."
+readme = "README.md"
+dynamic = ["version"]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3 :: Only",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "loguru",
+    "shapely",
+    "httpx",
+    "numpy",
+]
+
+[project.urls]
+Documentation = "https://Hazedd.github.io/ArcGisFeatureCache/"
+Source = "https://github.com/ArcGisFeatureCache"
+
+
+# todo: make date version
+# https://waylonwalker.com/hatch-version/
+# https://github.com/fleetingbytes/hatch-semver
