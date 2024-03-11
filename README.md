@@ -11,7 +11,7 @@ The ArcGIS Feature Layer Caching Library is a Python library designed to cache A
 
 ---
 
-**Documentation**: <a href="https://Hazedd.github.io/ArcGisFeatureCache/" target="_blank">https://Hazedd.github.io/ArcGisFeatureCache/</a>
+**Documentation**: <a href="https://Hazedd.github.io/ArcGisFeatureCache/" target="_blank">https://Hazedd.github.io/Hazedd/ArcGisFeatureCache/</a>
 
 **Source Code**: <a href="https://github.com/Hazedd/ArcGisFeatureCache" target="_blank">https://github.com/Hazedd/ArcGisFeatureCache</a>
 
@@ -54,7 +54,7 @@ feature_service_instance.get_layer_features(["layer_a", "layer_b"])
 - [X] docs as website
 - [ ] init release
 - [ ] 100% code coverage
-- [ ] ....
+- [ ] make pickle work so we can safe and load state
 
 
 ## Contributing

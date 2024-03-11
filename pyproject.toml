@@ -80,7 +80,7 @@ dependencies = [
 
 [project.urls]
 Documentation = "https://Hazedd.github.io/ArcGisFeatureCache/"
-Source = "https://github.com/ArcGisFeatureCache"
+Source = "https://github.com/Hazedd/ArcGisFeatureCache"
 
 
 # todo: make date version
