@@ -26,34 +26,37 @@ pip install arcGisFeatureCache
 ## Usage
 
 ```py
-import asyncio
-from arcGisFeatureCache import ArcGisFeatureService, get_feature_service
+from arcGisFeatureCache import get_feature_service
 
 url = "https://xxxx.xxx/arcgis/rest/services/xxxxxx/FeatureServer"
-
-if async:
-    feature_service_instance = await ArcGisFeatureService.factory(url)
-else:
-    feature_service_instance = get_feature_service(url)
-
+feature_service = get_feature_service(url)
 
 # get all features from service
-feature_service_instance.get_all_features()
+feature_service.get_all_features()
 
 # get features from one or more layers
-feature_service_instance.get_layer_features(["layer_a", "layer_b"])
-
-
-
+feature_service.get_layer_features(["layer_a", "layer_b"])
 
 ```
+
+### async
+```py
+from arcGisFeatureCache import ArcGisFeatureService
+
+url = "https://xxxx.xxx/arcgis/rest/services/xxxxxx/FeatureServer"
+feature_service = await ArcGisFeatureService.factory(url)
+
+```
+
 
 ## Roadmap:
 
 - [X] pr and github actions setup
 - [X] docs as website
 - [ ] init release
+- [ ] query by intersect geometry (rtree)
 - [ ] 100% code coverage
+- [ ] query by attribute
 - [ ] make pickle work so we can safe and load state
 
 
@@ -61,13 +64,5 @@ feature_service_instance.get_layer_features(["layer_a", "layer_b"])
 Contributions to the ArcGIS Feature Layer Caching Library are welcome! If you encounter any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request on GitHub.
 
 
-##
-
-
-thx frankie for coociecutter hipster stuff
-https://github.com/frankie567/cookiecutter-hipster-pypackage
-
-
 ## License
-
 This project is licensed under the terms of the MIT license.
