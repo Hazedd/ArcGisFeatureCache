@@ -94,7 +94,7 @@ class ArcGisFeatureService:
         """
         out_list = []
         for item in self.feature_service_layers:
-            out_list.extend([_ for _ in item.features if _.uuid in layers])
+            out_list.extend([_ for _ in item.features if _.dataset in layers])
         return out_list
 
     # def get_features_in_box(
