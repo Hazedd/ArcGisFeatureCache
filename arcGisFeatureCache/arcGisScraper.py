@@ -77,7 +77,6 @@ class ArcGisScraper:
         async with httpx.AsyncClient(
             timeout=None, limits=self._limits, verify=CUSTOM_SSL_CONTEXT
         ) as client:
-            # TODO: do not hammer... make backup and fail strategy
             success = False
             while not success:
                 try:
@@ -102,8 +101,7 @@ class ArcGisScraper:
         Returns:
             The fetched JSON data.
         """
-        # TODO: do not hammer... make backup and fail strategy
-        retry_seconds = 120
+        retry_seconds = 60
         json_data = await self._fetch(url)
         if "error" in json_data.keys():
             success = False

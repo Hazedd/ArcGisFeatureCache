@@ -72,11 +72,11 @@ class FeatureFields(ImmutableList):
     Converts input data to a list of FeatureField instances.
     """
 
-    _data: dict | None
+    _data: list | None
     _items: list[FeatureField] = field(init=False)
 
     def __post_init__(self) -> None:
-        if self._data is not None and isinstance(self._data, dict):
+        if self._data is not None and isinstance(self._data, list):
             self._items = [FeatureField(item) for item in self._data]
         else:
             self._items = []
@@ -219,7 +219,4 @@ def parse_date(date_value: int) -> datetime | None:
     Returns:
         Optional[datetime]: The parsed date.
     """
-    if date_value:
-        return datetime.fromtimestamp(date_value / 1000)
-    else:
-        return None
+    return datetime.utcfromtimestamp(date_value / 1000)

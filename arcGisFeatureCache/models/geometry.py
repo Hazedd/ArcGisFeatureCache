@@ -75,7 +75,7 @@ async def parse_line(geometry_value: dict) -> LineString:
     Returns:
         LineString: Shapely LineString object representing the parsed line geometry.
     """
-    if geometry_value == "" or (
+    if geometry_value == {} or (
         "paths" in geometry_value and len(geometry_value["paths"]) == 0
     ):
         return LineString()
@@ -98,6 +98,6 @@ async def parse_polygon(geometry_value: dict) -> Polygon:
         Polygon: Shapely Polygon object representing the parsed polygon geometry.
     """
     # TODO: implement 3d and inner outer stuff
-    if geometry_value == "":
+    if geometry_value == {}:
         return Polygon()
     return Polygon(geometry_value["rings"][0])
