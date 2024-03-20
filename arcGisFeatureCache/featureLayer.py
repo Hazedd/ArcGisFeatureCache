@@ -39,12 +39,12 @@ class ArcGisFeatureLayer:
 
         clear_temp_data(self)
 
-    async def _set_layer_name(self, layer_legenda: dict) -> None:
+    async def _set_dataset_name(self, layer_legenda: dict) -> None:
         """
         sets the layer name based on a legend.
 
         Parameters:
-            layer_legenda (Dict): A dictionary containing the legend for layer names.
+            layer_legenda: A dictionary containing the legend for layer names.
         """
         self.dataset = layer_legenda[self.dataset]
         for item in self.features:
@@ -70,17 +70,17 @@ class ArcGisFeatureLayer:
         Creates an ArcGisFeatureServiceLayer instance.
 
         Parameters:
-            _data (Dict): Data for creating the layer.
-            layer_legenda (Dict): Legend for layer names.
+            _data: Data for creating the layer.
+            layer_legenda: Legend for layer names.
 
         Returns:
-            ArcGisFeatureLayer: An instance of ArcGisFeatureServiceLayer.
+            An instance of ArcGisFeatureServiceLayer.
         """
         self = ArcGisFeatureLayer(_data)
-        layer_name = layer_legenda[_data["dataset"].split("/")[-1]]
+        dataset_name = layer_legenda[_data["dataset"].split("/")[-1]]
 
-        logger.debug(f"Processing new Feature Layer: {layer_name}")
-        await self._set_layer_name(layer_legenda)
+        logger.debug(f"Processing new Feature Layer: {dataset_name}")
+        await self._set_dataset_name(layer_legenda)
         await self._process_dates()
         await self._process_geometry()
         if len(self.features) != 0:
@@ -90,15 +90,15 @@ class ArcGisFeatureLayer:
                 True if self.features[0].measure_geometry is not None else False
             )
 
-        logger.debug(f"Done, created Feature Layer: {layer_name}")
+        logger.debug(f"Done, created dataset: {dataset_name}")
 
         return self
 
     def get_all_features(self) -> Features:
         """
-        Get all features from the layer.
+        Get all features from the dataset.
 
         Returns:
-            Features: All features in the layer.
+            All features in the layer.
         """
         return self.features

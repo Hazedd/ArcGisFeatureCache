@@ -1,9 +1,11 @@
-from arcGisFeatureCache import get_feature_service
+import asyncio
+
+from arcGisFeatureCache import ArcGisFeatureService
 
 
-def main():
+async def main():
     url = "https://maps.prorail.nl/arcgis/rest/services/Tekeningen_schematisch/FeatureServer"
-    feature_service = get_feature_service(url)
+    feature_service = await ArcGisFeatureService.factory(url)
 
     # get all features from service
     all_features = feature_service.get_all_features()
@@ -29,4 +31,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

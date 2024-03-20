@@ -2,7 +2,3 @@
 from loguru import logger
 
 logger.info("log log")
-
-
-if __name__ == "__main__":
-    pass

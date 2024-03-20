@@ -81,20 +81,29 @@ class ArcGisFeatureService:
                 out_list.extend([item2 for item2 in item.features])
         return out_list
 
+    def get_all_datasets(self) -> list[str]:
+        """
+        Retrieve a list of all datasets present..
+
+        Returns:
+            list[str]: A list containing the dataset names of all feature service layers.
+        """
+        return [_.dataset for _ in self.feature_service_layers]
+
     def get_layer_features(self, layers: list[str]) -> list[Feature]:
         """
-        Get all features of a / some layer name(s).
+        Get all features of a or some by dataset name(s).
 
         Parameters:
             layers: List of UUIDs to search for.
 
         Returns:
-            List of features with matching UUIDs.
+            List of features with matching dataset names.
 
         """
         out_list = []
         for item in self.feature_service_layers:
-            out_list.extend([_ for _ in item.features if _.uuid in layers])
+            out_list.extend([_ for _ in item.features if _.dataset in layers])
         return out_list
 
     # def get_features_in_box(

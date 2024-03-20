@@ -99,3 +99,7 @@ This project and everyone participating in it is governed by the
 [Code of Conduct](https://github.com/Hazedd/imxInsightsCore/blob/master/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code. Please report unacceptable behavior
 to <>.
+
+## init project started with
+frankie coociecutter hipster stuff
+https://github.com/frankie567/cookiecutter-hipster-pypackage

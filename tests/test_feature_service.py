@@ -12,17 +12,29 @@ feature_service_instance_km = asyncio.run(
 
 
 @pytest.mark.parametrize(
-    "feature_service_instance,name,layers_count",
+    "feature_service_instance,feature_layer,layers_count,layer_name",
     [
-        (feature_service_instance_km, "Referentiesysteem_004", 9),
+        (
+            feature_service_instance_km,
+            "Referentiesysteem_004",
+            9,
+            "Koppelpunt kilometerlint",
+        ),
     ],
 )
 @pytest.mark.asyncio
-async def test_feature_service_layers_count(
-    feature_service_instance: ArcGisFeatureService, name: str, layers_count: int
+async def test_feature_service_layers(
+    feature_service_instance: ArcGisFeatureService,
+    feature_layer: str,
+    layers_count: int,
+    layer_name: str,
 ):
     assert len(feature_service_instance.feature_service_layers) == layers_count
-    assert feature_service_instance.name == name
+    assert feature_service_instance.name == feature_layer
+
+    layer_features = feature_service_instance.get_layer_features([layer_name])
+    assert layer_features[0].dataset == layer_name
+    assert layer_features[-1].dataset == layer_name
 
 
 @pytest.mark.parametrize(
