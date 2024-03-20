@@ -21,17 +21,25 @@ class ArcGisScraper:
     """A class for scraping data from ArcGIS Feature Services.
 
     Attributes:
-        feature_service_info (Optional[Dict]): Information about the feature service.
-        feature_layers (Optional[List[Dict]]): List of feature layers.
-        layer_info (dict): Information about individual layers.
+        feature_service_info: Information about the feature service.
+        feature_layers: List of feature layers.
+        layer_info: Information about individual layers.
 
     """
 
-    def __init__(self, feature_service_url: str):
+    def __init__(
+        self,
+        feature_service_url: str,
+        _max_connections: int = 5,
+        _max_keepalive_connections: int = 5,
+    ):
         self._base_url = feature_service_url
         self.feature_service_info: dict | None = None
         self.feature_layers: list[dict] | None = None
-        self._limits = Limits(max_connections=5, max_keepalive_connections=5)
+        self._limits = Limits(
+            max_connections=_max_connections,
+            max_keepalive_connections=_max_keepalive_connections,
+        )
         self._transport = httpx.HTTPTransport(retries=1)
         self.layer_info: dict = {}
 
@@ -41,15 +49,15 @@ class ArcGisScraper:
         Create an ArcGisScraper instance.
 
         Parameters:
-            url (str): The URL of the ArcGIS Feature Service.
+            url: The URL of the ArcGIS Feature Service.
 
         Returns:
-            ArcGisScraper: An instance of ArcGisScraper.
+            An instance of ArcGisScraper.
 
         Raises:
             ValueError: If the URL is invalid.
         """
-        self = ArcGisScraper(url)
+        self = ArcGisScraper(url, 100, 20)
         await self._process_all_layers()
         return self
 
@@ -58,10 +66,10 @@ class ArcGisScraper:
         Asynchronously fetch data from the specified URL.
 
         Parameters:
-            url (str): The URL to fetch data from.
+            url: The URL to fetch data from.
 
         Returns:
-            dict: The fetched data.
+            The fetched data.
 
         Raises:
             ValueError: If the response cannot be parsed as JSON.
@@ -69,7 +77,7 @@ class ArcGisScraper:
         async with httpx.AsyncClient(
             timeout=None, limits=self._limits, verify=CUSTOM_SSL_CONTEXT
         ) as client:
-            # TODO: do not hammer... make backup
+            # TODO: do not hammer... make backup and fail strategy
             success = False
             while not success:
                 try:
@@ -89,12 +97,12 @@ class ArcGisScraper:
         Asynchronously fetch JSON data from the specified URL.
 
         Parameters:
-            url (str): The URL to fetch JSON data from.
+            url: The URL to fetch JSON data from.
 
         Returns:
-            dict: The fetched JSON data.
+            The fetched JSON data.
         """
-        # TODO: do not hammer... make backup
+        # TODO: do not hammer... make backup and fail strategy
         retry_seconds = 120
         json_data = await self._fetch(url)
         if "error" in json_data.keys():
@@ -116,11 +124,11 @@ class ArcGisScraper:
         Asynchronously fetch all data from the feature service.
 
         Parameters:
-            base_url (str): The base URL of the feature service.
-            feature_offset (int): Offset for fetching features.
+            base_url: The base URL of the feature service.
+            feature_offset: Offset for fetching features.
 
         Returns:
-            dict: All fetched data.
+            All fetched data.
         """
         self.layer_info = await self._get_json_data_async(base_url + "?f=pjson")
 
@@ -175,10 +183,10 @@ class ArcGisScraper:
         Asynchronously fetch data for a specific layer.
 
         Parameters:
-            feature_service_layer_url (str): The URL of the layer.
+            feature_service_layer_url: The URL of the layer.
 
         Returns:
-            dict: Data for the layer.
+            Data for the layer.
         """
         return await self._get_all_data_async(feature_service_layer_url)
 
