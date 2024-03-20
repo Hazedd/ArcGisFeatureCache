@@ -53,13 +53,11 @@ feature_service = await ArcGisFeatureService.factory(url)
 
 - [X] pr and github actions setup
 - [X] docs as website
-- [ ] init release 0.1.0
+- [X] init release 0.1.0
 - [ ] 100% code coverage
 - [ ] query by intersect geometry (rtree)
 - [ ] query by attribute
-- [ ] init release 0.1.1
 - [ ] make pickle work so we can safe and load state
-- [ ] init release 1.0.0
 
 
 ## Contributing
